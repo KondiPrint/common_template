@@ -13,7 +13,7 @@ export default function ToggleMenu() {
 
   const closeDropdown = async () => {
     setMenuOpen(false);
-    await new Promise((resolve) => setTimeout(resolve, 0)); // Simulates nextTick
+    await new Promise((resolve) => setTimeout(resolve, 0));
     if (document.activeElement) {
       document.activeElement.blur();
     }
@@ -37,17 +37,16 @@ export default function ToggleMenu() {
   }, [menuOpen]);
 
   const navLinks = [
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Carousel test', href: '/carousel' },
+    { name: 'Wonders', href: '/wonders' },
   ];
 
   const navLinksDrop = [
-    { name: 'Wonders', href: '/wonders' },
-    { name: 'Todos', href: '/todos' },
-    { name: 'News', href: '/news' },
-    { name: 'Weather', href: '/weather' },
-    { name: 'Random quotes', href: '/quotes' },
-    { name: 'Recipes', href: '/recipes' },
+    { name: 'Page_1', href: '/page_1' },
+    { name: 'Page_2', href: '/page_2' },
+    { name: 'Page_3', href: '/page_3' },
+    { name: 'Page_4', href: '/page_4' },
+    { name: 'Page_5', href: '/page_5' },
   ];
 
   const pathname = usePathname();

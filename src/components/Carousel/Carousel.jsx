@@ -109,7 +109,7 @@ const Carousel = () => {
                     width={400}
                     height={400}
                     src={img.src}
-                    className='w-full block cursor-pointer'
+                    className='cover w-full block cursor-pointer'
                     alt={`Slide ${i}`}
                   />
                   <div className='absolute bottom-0 bg-base-content w-full h-10 bg-opacity-50 flex items-center justify-center text-base-100'>
