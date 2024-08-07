@@ -98,18 +98,21 @@ const Carousel = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center w-10/12 sm:max-w-screen-sm mx-auto'>
+      <div className='flex flex-col justify-center items-center h-full sm:max-w-screen-sm mx-auto'>
         <div className='relative flex sm:p-4 sm:bg-base-content rounded-box'>
           <div className='carousel rounded-box'>
             {sliderControl(true)}
             {images.map((img, i) => (
-              <div className='size-full carousel-item relative items-center' key={i} ref={refs[i]}>
+              <div
+                className='h-96 w-full carousel-item relative items-center justify-center'
+                key={i}
+                ref={refs[i]}>
                 <div onClick={() => handleImageClick(img)} className=''>
                   <Image
                     width={400}
                     height={400}
                     src={img.src}
-                    className='cover w-full block cursor-pointer'
+                    className='object-cover object-center w-full block cursor-pointer'
                     alt={`Slide ${i}`}
                   />
                   <div className='absolute bottom-0 bg-base-content w-full h-10 bg-opacity-50 flex items-center justify-center text-base-100'>

@@ -4,6 +4,16 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'github.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
         hostname: 'openweathermap.org',
         port: '',
       },

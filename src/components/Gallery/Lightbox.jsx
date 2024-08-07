@@ -39,9 +39,9 @@ export default function Lightbox({ image, onClose }) {
 
   return (
     <div
-      className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-2 z-10'
+      className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-10 z-10'
       onClick={handleBackdropClick}>
-      <div className={`card w-fit bg-base-100 shadow-xl gap-2 ${animation}`}>
+      <div className={`card h-fit bg-base-100 shadow-xl gap-2 ${animation}`}>
         <figure className='relative'>
           <div className='absolute right-0 top-0'>
             <button
@@ -49,7 +49,7 @@ export default function Lightbox({ image, onClose }) {
               onClick={handleCloseClick}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-6 w-6'
+                className='size-6'
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'>
@@ -62,10 +62,19 @@ export default function Lightbox({ image, onClose }) {
               </svg>
             </button>
           </div>
-          <Image src={image.src} alt={image.txt} width={800} height={800} className='w-3/4 p-2' />
+          <Image
+            src={image.src}
+            alt={image.txt}
+            width={800}
+            height={800}
+            className=' max-h-[90vh] cover p-1'
+          />
         </figure>
-        <div className='pb-2'>
-          <p className='text-center'>{image.txt}</p>
+        <div className=''>
+          <p className='text-center pb-2'>
+            {image.txt}
+            {image.altTxt}
+          </p>
         </div>
       </div>
     </div>

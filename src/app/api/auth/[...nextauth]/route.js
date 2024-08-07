@@ -1,12 +1,27 @@
 import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { FaGithub } from 'react-icons/fa';
+import fs from 'fs';
+import path from 'path';
+
+const filePath = path.resolve('./src/app/lib/accounts/users.json');
+
+function readUsersFile() {
+  if (!fs.existsSync(filePath)) {
+    return { users: [] };
+  }
+  try {
+    const fileData = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(fileData);
+  } catch (error) {
+    console.error('Error reading users file:', error);
+    return { users: [] };
+  }
+}
 
 const authOptions = {
   providers: [
     GitHubProvider({
-      name: <FaGithub />,
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
@@ -18,16 +33,20 @@ const authOptions = {
       },
       async authorize(credentials) {
         const { username, password } = credentials;
+        const data = readUsersFile();
 
-        if (username === 'admin' && password === 'admin123') {
-          return { id: 1, name: 'Admin', email: 'admin@example.com' };
+        const user = data.users.find(
+          (user) => user.username === username && user.password === password
+        );
+        if (user) {
+          return { id: user.username, name: user.username, email: `${user.username}@example.com` };
         }
         return null;
       },
     }),
   ],
   pages: {
-    signIn: '/login',
+    signIn: '/signin',
   },
   callbacks: {
     async session({ session, token }) {
