@@ -1,11 +1,9 @@
-import ContactForm from '@/components/Form/ContactForm';
+import Hero from '@/components/Hero/Hero';
 
 export default function Home() {
   return (
     <>
-      <h1>This is the main page!</h1>
-
-      <ContactForm />
+      <Hero />
     </>
   );
 }

@@ -1,12 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { getProviders, signIn, useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
 
 export default function SignUpPage() {
+  const [providers, setProviders] = useState(null);
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
   const router = useRouter();
+
+  const providerIcons = {
+    google: <FaGoogle />,
+    github: <FaGithub className='size-8' />,
+    facebook: <FaFacebook />,
+  };
+
+  useEffect(() => {
+    const fetchProviders = async () => {
+      const res = await getProviders();
+      setProviders(res);
+    };
+
+    fetchProviders();
+  }, []);
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -83,6 +101,20 @@ export default function SignUpPage() {
           <button type='button' onClick={() => router.push('/signin')} className='btn-link'>
             Already have an account?
           </button>
+        </div>
+        <div>
+          <h2>Sign In with a Provider</h2>
+          {providers &&
+            Object.values(providers).map(
+              (provider) =>
+                provider.id !== 'credentials' && (
+                  <div key={provider.name}>
+                    <button onClick={() => signIn(provider.id)} className='btn btn-ghost'>
+                      {providerIcons[provider.id] || provider.name}
+                    </button>
+                  </div>
+                )
+            )}
         </div>
       </form>
     </div>

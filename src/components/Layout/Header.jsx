@@ -11,6 +11,7 @@ import ThemeToggler from './ThemeToggle';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { CgProfile } from 'react-icons/cg';
+import DrawerMenu from './DrawerMenu';
 
 export default function Header() {
   const { data: session } = useSession();
@@ -25,10 +26,6 @@ export default function Header() {
     { name: 'Page_4', href: '/page_4' },
     { name: 'Page_5', href: '/page_5' },
   ];
-
-  const defaultImage = () => {
-    return <CgProfile />;
-  };
 
   return (
     <header id='top' className='relative border-b-2 px-2'>
@@ -81,48 +78,8 @@ export default function Header() {
         </div>
 
         <div className='sm:hidden'>
-          <ToggleMenu />
-        </div>
-
-        <div>
-          {session ? (
-            <div className='dropdown dropdown-end'>
-              <div tabIndex={0} role='button' className='btn btn-ghost btn-circle avatar'>
-                <div className='w-10 rounded-full'>
-                  <Image
-                    alt='Beautiful profile picture!'
-                    width={700}
-                    height={700}
-                    src={session.user.image || <CgProfile />}
-                  />
-                </div>
-              </div>
-              <ul
-                tabIndex={0}
-                className='menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow'>
-                <li>
-                  <Link href={'/profile'} className='justify-between'>
-                    Profile
-                    <span className='badge'>New</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href={'/dashboard'} className='justify-between'>
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <button onClick={() => signOut()} className='btn btn-sm btn-error mt-5'>
-                    Sign Out
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <Link href={'/signin'} className='btn'>
-              Login
-            </Link>
-          )}
+          {/* <ToggleMenu /> */}
+          <DrawerMenu />
         </div>
       </nav>
 

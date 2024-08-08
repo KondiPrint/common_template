@@ -40,6 +40,9 @@ export default function Dropdown() {
     };
   }, [isOpen]);
 
+  {
+    /* close icon */
+  }
   const dropdownShown = (
     <svg
       className='swap-on fill-current size-10'
@@ -50,6 +53,10 @@ export default function Dropdown() {
       <polygon points='400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49' />
     </svg>
   );
+
+  {
+    /* hamburger icon */
+  }
   const dropdownHidden = (
     <svg
       className='swap-off fill-current size-10'
@@ -62,35 +69,37 @@ export default function Dropdown() {
   );
 
   return (
-    <div className='dropdown dropdown-end' ref={dropdownRef}>
-      <div
-        role='button'
-        tabIndex={0}
-        onClick={toggleDropdown}
-        className={`swap swap-rotate btn-circle ${isOpen ? 'swap-active' : ''}`}>
-        {/* hamburger icon */}
-        {dropdownHidden}
+    <>
+      <div className='dropdown dropdown-end' ref={dropdownRef}>
+        <div
+          role='button'
+          tabIndex={0}
+          onClick={toggleDropdown}
+          className={`swap swap-rotate btn-circle ${isOpen ? 'swap-active' : ''}`}>
+          {dropdownHidden}
 
-        {/* close icon */}
-        {dropdownShown}
+          {dropdownShown}
+        </div>
+        {isOpen && (
+          <ul tabIndex={0} className='dropdown-content menu bg-base-100 z-50 p-4 drop-shadow-2xl'>
+            {navLinksDrop.map((links) => {
+              const isActive = pathname.startsWith(links.href);
+              return (
+                <li key={links.name} className=''>
+                  <Link
+                    href={links.href}
+                    onClick={toggleDropdown}
+                    className={`block w-full ${
+                      isActive ? 'text-primary font-bold' : 'font-normal'
+                    }`}>
+                    {links.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
-      {isOpen && (
-        <ul tabIndex={0} className='dropdown-content menu bg-base-100 z-50 p-4 drop-shadow-2xl'>
-          {navLinksDrop.map((links) => {
-            const isActive = pathname.startsWith(links.href);
-            return (
-              <li key={links.name} className=''>
-                <Link
-                  href={links.href}
-                  onClick={toggleDropdown}
-                  className={`block w-full ${isActive ? 'text-primary font-bold' : 'font-normal'}`}>
-                  {links.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
+    </>
   );
 }
