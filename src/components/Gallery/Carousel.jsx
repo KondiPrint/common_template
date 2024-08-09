@@ -57,16 +57,14 @@ const Carousel = () => {
   };
 
   const arrowStyle =
-    'absolute z-10 text-base-100 bg-primary text-4xl px-2 h-12 flex items-center opacity-20 justify-center hover:opacity-95 hover:bg-secondary';
+    'absolute z-10 text-base-100 bg-primary text-xl px-2 size-10 flex items-center opacity-10 justify-center hover:opacity-95 hover:bg-secondary';
 
   const sliderControl = (isLeft) => (
     <button
       type='button'
       onClick={isLeft ? previousImage : nextImage}
-      className={`${arrowStyle} top-[80%] sm:top-1/2 ${
-        isLeft
-          ? 'left-0 rounded-br-xl sm:-left-0 sm:rounded-br-full sm:rounded-tr-full'
-          : 'right-0 rounded-bl-xl sm:-right-0 sm:rounded-bl-full sm:rounded-tl-full'
+      className={`${arrowStyle} top-1/2 ${
+        isLeft ? 'left-0  rounded-full' : 'right-0 rounded-full'
       }`}>
       <span role='img' aria-label={`Arrow ${isLeft ? 'left' : 'right'}`}>
         {isLeft ? <FaAngleLeft /> : <FaAngleRight />}
@@ -99,7 +97,7 @@ const Carousel = () => {
   return (
     <>
       <div className='flex flex-col justify-center items-center h-full sm:max-w-screen-sm mx-auto'>
-        <div className='relative flex sm:p-4 sm:bg-base-content rounded-box'>
+        <div className='relative flex sm:p-4 rounded-box'>
           <div className='carousel rounded-box'>
             {sliderControl(true)}
             {images.map((img, i) => (

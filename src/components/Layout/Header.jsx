@@ -30,12 +30,11 @@ export default function Header() {
   return (
     <header id='top' className='relative border-b-2 px-2'>
       <nav className='navbar'>
-        <div>
+        <div className='flex-1 gap-4'>
           <Link href={'/'} className='btn'>
             Home
           </Link>
-        </div>
-        <div className='flex-1 gap-2'>
+
           <ThemeToggler />
         </div>
 

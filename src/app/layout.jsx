@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 const Header = dynamic(() => import('@/components/Layout/Header'));
 const Footer = dynamic(() => import('@/components/Layout/Footer'));
 import CookieBanner from '@/components/Layout/Cookies';
-import Providers from './providers';
+import Providers from './utils/providers';
 import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
           <Header />
           <main className='snap-mandatory snap-y'>
             {children}
-            <CookieBanner />
+            {/* <CookieBanner /> */}
           </main>
           <Footer />
         </Providers>
