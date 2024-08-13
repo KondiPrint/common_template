@@ -1,24 +1,31 @@
+'use client';
+
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 
-export default function JsonPosts({ data }) {
+const JsonGetPosts = ({ data }) => {
   return (
-    <div className='space-y-4 p-4'>
-      {data.map((post) => (
-        <div className='card bg-base-100 w-fit shadow-xl ' key={post.id}>
-          <div className='badge badge-primary rounded-tr-none rounded-bl-none rounded-tl-3xl rounded-br-2xl p-3'>
-            {post.id}
-          </div>
-          <div className='card-body'>
-            <h2 className='card-title'>{post.title}</h2>
-            <p>{post.body}</p>
-            <div className='card-actions justify-end'>
-              <Link href={`/jsonPlaceholder/posts/${post.id}`} className='btn btn-primary'>
-                Read more
-              </Link>
+    <>
+      <h2>All Posts</h2>
+
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
+        {data &&
+          data.map((post) => (
+            <div className='card bg-base-100 w-fit shadow-xl' key={post.id}>
+              <div className='card-body'>
+                <h3 className='card-title'>{post.title}</h3>
+                <p>{post.body}</p>
+                <div className='card-actions justify-end'>
+                  <Link href={`/jsonplaceholder/${post.id}`} className='btn btn-primary'>
+                    Read more
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
+          ))}
+      </div>
+    </>
   );
-}
+};
+
+export default JsonGetPosts;

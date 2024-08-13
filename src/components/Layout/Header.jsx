@@ -1,26 +1,20 @@
-// 'app/components/Header.js'
-
 'use client';
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import ScrollToTop from './ScrollToTop';
-import ToggleMenu from './ToggleMenu';
 import ThemeToggler from './ThemeToggle';
 import { usePathname } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
-import { CgProfile } from 'react-icons/cg';
 import DrawerMenu from './DrawerMenu';
 
 export default function Header() {
-  const { data: session } = useSession();
   const pathname = usePathname();
 
   const navLinks = [{ name: 'Wonders', href: '/wonders' }];
 
   const navLinksDrop = [
     { name: 'Gallery', href: '/gallery' },
+    { name: 'Posts', href: '/jsonplaceholder' },
     { name: 'Page_2', href: '/page_2' },
     { name: 'Page_3', href: '/page_3' },
     { name: 'Page_4', href: '/page_4' },

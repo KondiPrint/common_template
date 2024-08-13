@@ -10,6 +10,8 @@ export default function Dropdown() {
 
   const navLinksDrop = [
     { name: 'Wonders', href: '/wonders' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Posts', href: '/jsonplaceholder' },
     { name: 'Page_1', href: '/page_1' },
     { name: 'Page_2', href: '/page_2' },
     { name: 'Page_3', href: '/page_3' },

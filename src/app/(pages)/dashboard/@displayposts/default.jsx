@@ -1,11 +1,11 @@
 import Card from '@/components/Styles/Card';
 import Link from 'next/link';
 
-export default function DefaultNotifications() {
+export default function DefaultDisplayPosts() {
   return (
     <>
       <Card>
-        <div>Notifications</div>
+        <div>Display Posts</div>
         <Link href={'/dashboard/archived'}>Archived</Link>
       </Card>
     </>

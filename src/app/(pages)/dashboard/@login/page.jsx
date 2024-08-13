@@ -6,7 +6,7 @@ export default function LoginWarning() {
     <>
       <Card>
         <div>Please Log in to continue</div>
-        <Link href={'/login'}>Click here to login</Link>
+        <Link href={'/signin'}>Click here to login</Link>
       </Card>
     </>
   );
