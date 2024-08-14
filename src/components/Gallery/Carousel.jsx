@@ -20,7 +20,7 @@ const images = [
   },
 ];
 
-const Carousel = () => {
+export default function Carousel() {
   const [currentImage, setCurrentImage] = useState(0);
   const [lightboxImage, setLightboxImage] = useState(null);
 
@@ -127,6 +127,4 @@ const Carousel = () => {
       <Lightbox image={lightboxImage} onClose={closeLightbox} />
     </>
   );
-};
-
-export default Carousel;
+}

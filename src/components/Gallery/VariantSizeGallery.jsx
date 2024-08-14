@@ -19,28 +19,28 @@ export default function VariantSizeGallery() {
   const galleryImages = [
     {
       src: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600',
-      altTxt: 'Photo by Minh Pham',
+      txt: 'Photo by Minh Pham',
       width: '600',
       href: '#',
       cat: 'VR',
     },
     {
       src: 'https://images.unsplash.com/photo-1542759564-7ccbb6ac450a?auto=format&q=75&fit=crop&w=1000',
-      altTxt: 'Photo by Magicle',
+      txt: 'Photo by Magicle',
       width: '1000',
       href: '#',
       cat: 'Tech',
     },
     {
       src: 'https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000',
-      altTxt: 'Photo by Martin Sanchez',
+      txt: 'Photo by Martin Sanchez',
       width: '1000',
       href: '#',
       cat: 'Dev',
     },
     {
       src: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600',
-      altTxt: 'Photo by Lorenzo Herrera',
+      txt: 'Photo by Lorenzo Herrera',
       width: '600',
       href: '#',
       cat: 'Retro',
@@ -60,11 +60,11 @@ export default function VariantSizeGallery() {
                   className='group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80'>
                   <Image
                     onClick={() => handleImageClick(img)}
+                    alt={img.txt}
                     width={img.width}
                     height={img.width}
                     src={img.src}
                     className='absolute inset-0 size-full object-cover object-center transition duration-200 group-hover:scale-110'
-                    alt={img.altTxt}
                   />
                   <div className='pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50'></div>
 
