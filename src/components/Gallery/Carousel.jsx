@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import Image from 'next/image';
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 import Lightbox from './Lightbox';
@@ -20,9 +20,10 @@ const images = [
   },
 ];
 
-export default function Carousel() {
+export default function Carousel({ autoPlay = true, autoPlayInterval = 5000 }) {
   const [currentImage, setCurrentImage] = useState(0);
   const [lightboxImage, setLightboxImage] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const refs = images.reduce((acc, val, i) => {
     acc[i] = createRef();
@@ -30,45 +31,46 @@ export default function Carousel() {
   }, {});
 
   const scrollToImage = (i) => {
-    setCurrentImage(i);
-    refs[i].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'start',
-    });
+    if (refs[i].current) {
+      setCurrentImage(i);
+      refs[i].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      });
+    }
   };
 
   const totalImages = images.length;
 
   const nextImage = () => {
-    if (currentImage >= totalImages - 1) {
-      scrollToImage(0);
-    } else {
-      scrollToImage(currentImage + 1);
-    }
+    scrollToImage((currentImage + 1) % totalImages);
   };
 
   const previousImage = () => {
-    if (currentImage === 0) {
-      scrollToImage(totalImages - 1);
-    } else {
-      scrollToImage(currentImage - 1);
-    }
+    scrollToImage((currentImage - 1 + totalImages) % totalImages);
   };
 
   const arrowStyle =
     'absolute z-10 text-base-100 bg-primary text-xl px-2 size-10 flex items-center opacity-10 justify-center hover:opacity-95 hover:bg-secondary';
 
-  const sliderControl = (isLeft) => (
+  const LeftArrow = ({ onClick }) => (
     <button
       type='button'
-      onClick={isLeft ? previousImage : nextImage}
-      className={`${arrowStyle} top-1/2 ${
-        isLeft ? 'left-0  rounded-full' : 'right-0 rounded-full'
-      }`}>
-      <span role='img' aria-label={`Arrow ${isLeft ? 'left' : 'right'}`}>
-        {isLeft ? <FaAngleLeft /> : <FaAngleRight />}
-      </span>
+      onClick={onClick}
+      className='absolute z-10 text-base-100 bg-primary text-xl px-2 size-10 flex items-center opacity-10 justify-center hover:opacity-95 hover:bg-secondary top-1/2 left-0 rounded-full'
+      aria-label='Previous slide'>
+      <FaAngleLeft />
+    </button>
+  );
+
+  const RightArrow = ({ onClick }) => (
+    <button
+      type='button'
+      onClick={onClick}
+      className='absolute z-10 text-base-100 bg-primary text-xl px-2 size-10 flex items-center opacity-10 justify-center hover:opacity-95 hover:bg-secondary top-1/2 right-0 rounded-full'
+      aria-label='Next slide'>
+      <FaAngleRight />
     </button>
   );
 
@@ -94,12 +96,24 @@ export default function Carousel() {
     setLightboxImage(null);
   };
 
+  useEffect(() => {
+    if (autoPlay && !isPaused && refs[currentImage].current) {
+      const interval = setInterval(() => {
+        if (refs[currentImage].current) {
+          nextImage();
+        }
+      }, autoPlayInterval);
+
+      return () => clearInterval(interval);
+    }
+  }, [currentImage, autoPlay, autoPlayInterval, isPaused]);
+
   return (
     <>
-      <div className='flex flex-col justify-center items-center h-full sm:max-w-screen-sm mx-auto'>
+      <aside className='flex flex-col justify-center items-center h-full sm:max-w-screen-sm mx-auto'>
         <div className='relative flex sm:p-4 rounded-box'>
+          <LeftArrow onClick={previousImage} />
           <div className='carousel rounded-box'>
-            {sliderControl(true)}
             {images.map((img, i) => (
               <div
                 className='h-96 w-full carousel-item relative items-center justify-center'
@@ -112,6 +126,7 @@ export default function Carousel() {
                     src={img.src}
                     className='object-cover object-center w-full block cursor-pointer'
                     alt={`Slide ${i}`}
+                    loading='lazy'
                   />
                   <div className='absolute bottom-0 bg-base-content w-full h-10 bg-opacity-50 flex items-center justify-center text-base-100'>
                     {img.txt}
@@ -119,11 +134,11 @@ export default function Carousel() {
                 </div>
               </div>
             ))}
-            {sliderControl(false)}
+            <RightArrow onClick={nextImage} />
           </div>
         </div>
         <Dots currentImage={currentImage} scrollToImage={scrollToImage} />
-      </div>
+      </aside>
       <Lightbox image={lightboxImage} onClose={closeLightbox} />
     </>
   );

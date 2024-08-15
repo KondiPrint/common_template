@@ -4,27 +4,25 @@ export default function AmountPerSite({
   setAmountPerSite,
   setCurrentSite,
   options = [5, 10, 20, 30],
+  amountPerSite,
 }) {
   return (
-    <>
-      <label className='form-control gap-2 w-fit'>
-        <label htmlFor='results'>Results</label>
-        <select
-          id='results'
-          className='select select-bordered focus:outline-none focus:border-primary'
-          defaultValue='5'>
-          {options.map((o) => (
-            <option
-              key={o}
-              onClick={() => {
-                setAmountPerSite(o);
-                setCurrentSite(0);
-              }}>
-              {o}
-            </option>
-          ))}
-        </select>
-      </label>
-    </>
+    <div className='flex items-center gap-2'>
+      {options.map((o, index) => (
+        <React.Fragment key={o}>
+          <button
+            className={`link ${
+              amountPerSite === o ? 'text-primary font-bold' : 'text-base-content'
+            }`}
+            onClick={() => {
+              setAmountPerSite(o);
+              setCurrentSite(0);
+            }}>
+            {o}
+          </button>
+          {index < options.length - 1 && <span className='text-base-content mx-1'>/</span>}
+        </React.Fragment>
+      ))}
+    </div>
   );
 }

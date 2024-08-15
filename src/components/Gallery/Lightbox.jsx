@@ -40,7 +40,9 @@ export default function Lightbox({ image, onClose }) {
   return (
     <div
       className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-10 z-10'
-      onClick={handleBackdropClick}>
+      onClick={handleBackdropClick}
+      aria-modal='true'
+      role='dialog'>
       <div className={`card h-fit bg-base-100 shadow-xl gap-2 ${animation}`}>
         <figure className='relative'>
           <div className='absolute right-0 top-0'>
@@ -64,17 +66,16 @@ export default function Lightbox({ image, onClose }) {
           </div>
           <Image
             src={image.src}
-            alt={image.txt}
+            alt={image.txt || 'Lightbox image'}
             width={800}
             height={800}
             className=' max-h-[90vh] cover p-1'
+            loading='lazy'
           />
         </figure>
-        <div className=''>
-          <p className='text-center pb-2'>
-            {image.txt}
-            {image.altTxt}
-          </p>
+        <div className='text-center pb-2'>
+          <p>{image.txt || 'No description available'}</p>
+          {image.altTxt && <p>{image.altTxt}</p>}
         </div>
       </div>
     </div>

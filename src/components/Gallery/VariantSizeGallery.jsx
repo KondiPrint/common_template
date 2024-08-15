@@ -49,8 +49,8 @@ export default function VariantSizeGallery() {
 
   return (
     <>
-      <div className='h-full py-6 sm:py-8 lg:py-12'>
-        <div className='mx-auto max-w-screen-2xl px-4 md:px-8'>
+      <div className='h-full'>
+        <div className='mx-auto max-w-screen-2xl'>
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:gap-8 odd:md:col-span-2'>
             {galleryImages &&
               galleryImages.map((img, i) => (
@@ -77,8 +77,8 @@ export default function VariantSizeGallery() {
         </div>
       </div>
 
-      <div className='h-full py-6 sm:py-8 lg:py-12'>
-        <div className='mx-auto max-w-screen-2xl px-4 md:px-8'>
+      <div className='h-full'>
+        <div className='mx-auto max-w-screen-2xl'>
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:gap-8'>
             {/* image - start */}
             <Link
